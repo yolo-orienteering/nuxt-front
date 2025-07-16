@@ -17,6 +17,12 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
+    [
+      'nuxt-lucide-icons',
+      {
+        namePrefix: 'Icon',
+      },
+    ],
   ],
   build: {
     transpile: ['vuetify'],

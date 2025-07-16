@@ -1,3 +1,3 @@
 <template>
-  <h1>o-mate</h1>
+  <h1>o-mate <IconRockingChair /></h1>
 </template>
