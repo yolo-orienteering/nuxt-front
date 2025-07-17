@@ -10,7 +10,7 @@
       v-for="(menuEntry, menuEntryIndex) in menuEntries"
       :key="menuEntryIndex"
       :active="isActiveRoute(menuEntry.routeName)"
-      active-color="primary"
+      color="primary"
     >
       <nuxt-link :to="{ name: menuEntry.routeName }" class="text-h6">
         <component
