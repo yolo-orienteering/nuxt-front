@@ -7,7 +7,7 @@
 <template>
   <v-app>
     <o-header />
-    <o-desktop-menu />
+    <o-desktop-menu class="hidden-xs" />
     <v-main>
       <v-container class="main-container">
         <slot />
