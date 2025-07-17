@@ -12,7 +12,11 @@
       >
         <nuxt-link :to="{ name: menuEntry.routeName }">
           <div>
-            <component :is="menuEntry.icon" :size="24" />
+            <component
+              :is="menuEntry.icon"
+              :size="24"
+              :strokeWidth="isActiveRoute(menuEntry.routeName) ? 3 : 1.5"
+            />
           </div>
           <div
             class="mt-n1"
