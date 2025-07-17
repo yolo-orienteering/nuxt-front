@@ -7,18 +7,12 @@
 <template>
   <v-app>
     <o-header />
-    <o-desktop-menu class="hidden-xs" />
+    <o-desktop-menu />
     <v-main>
-      <v-container class="main-container">
+      <v-container>
         <slot />
       </v-container>
     </v-main>
     <o-mobile-menu class="align-self-end hidden-sm-and-up" />
   </v-app>
 </template>
-
-<style lang="scss">
-  .main-container {
-    height: calc(100vh - 84px);
-  }
-</style>
