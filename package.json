@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
     "vite-plugin-vuetify": "^2.1.1",
     "vuetify": "^3.9.0"
   }

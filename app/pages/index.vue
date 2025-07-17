@@ -1,3 +1,3 @@
 <template>
-  <div>races</div>
+  <h1>races</h1>
 </template>

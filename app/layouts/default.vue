@@ -1,16 +1,24 @@
 <script setup lang="ts">
-  import OMateHeader from '~/components/layout/o-mate-header.vue'
-  import oNavigationDrawer from '~/components/layout/o-navigation-drawer.vue'
+  import oHeader from '~/components/layout/o-header.vue'
+  import oDesktopMenu from '~/components/layout/o-desktop-menu.vue'
+  import oMobileMenu from '~/components/layout/o-mobile-menu.vue'
 </script>
 
 <template>
   <v-app>
-    <o-mate-header />
-    <o-navigation-drawer />
+    <o-header />
+    <o-desktop-menu />
     <v-main>
-      <v-container>
+      <v-container class="main-container">
         <slot />
       </v-container>
     </v-main>
+    <o-mobile-menu class="align-self-end hidden-sm-and-up" />
   </v-app>
 </template>
+
+<style lang="scss">
+  .main-container {
+    height: calc(100vh - 84px);
+  }
+</style>
