@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/image',
     '@nuxt/test-utils',
+    '@nuxt/pinia',
     (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', (config) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

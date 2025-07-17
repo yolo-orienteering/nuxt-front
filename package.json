@@ -10,13 +10,16 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@directus/sdk": "^18.0.3",
     "@nuxt/eslint": "^1.5.2",
     "@nuxt/fonts": "^0.11.4",
     "@nuxt/image": "^1.10.0",
     "@nuxt/test-utils": "^3.19.2",
+    "@pinia/nuxt": "^0.11.1",
     "eslint": "^9.31.0",
     "nuxt": "^4.0.0",
     "nuxt-lucide-icons": "^1.0.5",
+    "pinia": "^3.0.3",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
   },
