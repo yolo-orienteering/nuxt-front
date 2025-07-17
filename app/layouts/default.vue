@@ -13,6 +13,6 @@
         <slot />
       </v-container>
     </v-main>
-    <o-mobile-menu class="align-self-end hidden-sm-and-up" />
+    <o-mobile-menu class="hidden-sm-and-up" />
   </v-app>
 </template>
