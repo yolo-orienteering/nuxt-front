@@ -1,18 +1,18 @@
-import {useQuasar} from 'quasar'
+import { useLocalStorage } from './useLocalStorage'
 
 export function useNewsletter() {
-  const localStorage = useQuasar().localStorage
+  const localStorage = useLocalStorage()
 
-  function rememberSubscription () {
-    localStorage.set('NEWSLETTER', true)
+  function rememberSubscription() {
+    localStorage.setItem('NEWSLETTER', 'true')
   }
 
-  function isSubscribed (): boolean {
+  function isSubscribed(): boolean | null {
     return localStorage.has('NEWSLETTER')
   }
 
   return {
     rememberSubscription,
-    isSubscribed
+    isSubscribed,
   }
 }

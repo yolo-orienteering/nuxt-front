@@ -4,6 +4,7 @@ import { useApi } from '@/stores/useApi'
 import type { RaceCategory, UserDeparture } from '@/types/DirectusTypes'
 import { onMounted, ref, watch } from 'vue'
 import { useDeparture } from './useDeparture'
+import { useLocalStorage } from './useLocalStorage'
 
 export function useMyDepartures() {
   const { directus } = useApi()
@@ -14,7 +15,7 @@ export function useMyDepartures() {
   const lastUserIdentifier = ref<string | false>(syncCenter.userIdentifier)
 
   // local storage
-  const localStorage = useQuasar().localStorage
+  const localStorage = useLocalStorage()
   const MY_DEPARTURES_KEY = 'my-departures'
 
   onMounted(async () => {
@@ -29,7 +30,11 @@ export function useMyDepartures() {
   // update local store
   watch(
     () => myDepartures,
-    () => localStorage.set(MY_DEPARTURES_KEY, myDepartures.value),
+    () =>
+      localStorage.setItem(
+        MY_DEPARTURES_KEY,
+        JSON.stringify(myDepartures.value)
+      ),
     { deep: true }
   )
 

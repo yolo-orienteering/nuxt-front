@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import { useQuasar } from 'quasar'
 import RaceFilter from '@/classes/RaceFilter'
 import { useMyDepartures } from '@/composables/useMyDepartures'
 import type { DirectusUsers, Race, UserDeparture } from '@/types/DirectusTypes'
 import { computed, ref, watch } from 'vue'
+import { useLocalStorage } from '~/composables/useLocalStorage'
 
 export type FollowingUserDeparture = Pick<UserDeparture, 'id' | 'race'>
 
@@ -24,7 +24,7 @@ export const useSyncCenter = defineStore('syncCenter', () => {
    * DEFINE STORE KEY NAMES
    */
   // local storage variables
-  const localStorage = useQuasar().localStorage
+  const localStorage = useLocalStorage()
   const MY_RACES_STORAGE_KEY = 'my-races'
   const FILTERS_STORAGE_KEY = 'filters'
   const USER_STORAGE_KEY = 'user'
@@ -78,7 +78,7 @@ export const useSyncCenter = defineStore('syncCenter', () => {
     myRaces,
     () => {
       // sort by date
-      localStorage.set(MY_RACES_STORAGE_KEY, myRaces.value)
+      localStorage.setItem(MY_RACES_STORAGE_KEY, JSON.stringify(myRaces.value))
     },
     { deep: true }
   )
@@ -86,7 +86,7 @@ export const useSyncCenter = defineStore('syncCenter', () => {
   watch(
     filter,
     () => {
-      localStorage.set(FILTERS_STORAGE_KEY, filter.value)
+      localStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(filter.value))
     },
     { deep: true }
   )
@@ -94,16 +94,16 @@ export const useSyncCenter = defineStore('syncCenter', () => {
   watch(
     user,
     () => {
-      localStorage.set(USER_STORAGE_KEY, user.value)
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user.value))
     },
     { deep: true }
   )
   watch(
     followingUserDepartures,
     () => {
-      localStorage.set(
+      localStorage.setItem(
         FOLLOWING_USER_DEPARTURES_STORAGE_KEY,
-        followingUserDepartures.value
+        JSON.stringify(followingUserDepartures.value)
       )
     },
     {
