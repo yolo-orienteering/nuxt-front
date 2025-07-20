@@ -12,7 +12,7 @@
     <race-timeline
       v-if="races"
       :races="races"
-      :loading="loading"
+      :loading="status !== 'success'"
       @load-more="loadMore()"
     />
   </div>
@@ -28,26 +28,24 @@
   import { readItems } from '@directus/sdk'
 
   // defining races
-  const loading = ref<boolean>(false)
   const teleportToMenuEl = ref<HTMLElement | null>(null)
 
   // initially loads races with onMounted hook within composable
   const syncCenter = useSyncCenter()
   const notify = useNotify()
   const { directus } = useApi()
-  const races = ref<Race[]>([])
 
   onMounted(async () => {
     // teleportToMenuEl.value = document.getElementById('teleport-to-menu')
-    await initialLoad()
   })
 
-  async function initialLoad(): Promise<void> {
-    loading.value = true
-    const query = syncCenter.filter.composeRaceQuery({ initialLoad: true })
-    races.value = await directus.request<Race[]>(readItems('Race', query))
-    loading.value = false
-  }
+  const { data: races, status } = await useAsyncData<Race[]>(
+    'initial-races',
+    () => {
+      const query = syncCenter.filter.composeRaceQuery({ initialLoad: true })
+      return directus.request<Race[]>(readItems('Race', query))
+    }
+  )
 
   async function updateFilter(): Promise<void> {
     window.scrollTo({
