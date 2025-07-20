@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import oHeader from '~/components/layout/o-header.vue'
-  import oDesktopMenu from '~/components/layout/o-desktop-menu.vue'
-  import oMobileMenu from '~/components/layout/o-mobile-menu.vue'
+  import oHeader from '~/components/layout/oHeader.vue'
+  import oDesktopMenu from '~/components/layout/oDesktopMenu.vue'
+  import oMobileMenu from '~/components/layout/oMobileMenu.vue'
   import notifications from '~/components/helper/notifications.vue'
 </script>
 

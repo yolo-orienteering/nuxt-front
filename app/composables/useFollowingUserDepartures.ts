@@ -1,8 +1,8 @@
 import { readItems } from '@directus/sdk'
-import { useSyncCenter } from '@/stores/syncCenter'
-import type { FollowingUserDeparture } from '@/stores/syncCenter'
-import { useApi } from '@/stores/useApi'
-import type { UserDeparture } from '@/types/DirectusTypes'
+import { useSyncCenter } from '~/stores/useSyncCenter'
+import type { FollowingUserDeparture } from '~/stores/useSyncCenter'
+import { useApi } from '~/stores/useApi'
+import type { UserDeparture } from '~/types/directusTypes'
 
 export function useFollowingUserDepartures() {
   const { followingUserDepartures } = useSyncCenter()

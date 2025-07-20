@@ -1,4 +1,4 @@
-import { useLocalStorage } from './useLocalStorage'
+import { useLocalStorage } from './useLocalStore'
 
 export function useNewsletter() {
   const localStorage = useLocalStorage()

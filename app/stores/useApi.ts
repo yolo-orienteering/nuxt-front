@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { createDirectus, rest } from '@directus/sdk'
-import type { CustomDirectusTypes } from '../types/DirectusTypes'
+import type { CustomDirectusTypes } from '../types/directusTypes'
 
 export const useApi = defineStore('useApi', () => {
   const API_URL = (): string => {

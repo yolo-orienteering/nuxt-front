@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
-import RaceFilter from '@/classes/RaceFilter'
-import { useMyDepartures } from '@/composables/useMyDepartures'
-import type { DirectusUsers, Race, UserDeparture } from '@/types/DirectusTypes'
+import RaceFilter from '~/classes/RaceFilter'
+import { useMyDepartures } from '~/composables/useMyDepartures'
+import type { DirectusUsers, Race, UserDeparture } from '~/types/directusTypes'
 import { computed, ref, watch } from 'vue'
-import { useLocalStorage } from '~/composables/useLocalStorage'
+import { useLocalStorage } from '~/composables/useLocalStore'
 
 export type FollowingUserDeparture = Pick<UserDeparture, 'id' | 'race'>
 
-export const useSyncCenter = defineStore('syncCenter', () => {
+export const useSyncCenter = defineStore('useSyncCenter', () => {
   // NEW WAY!
   // todo: move others into new separate composable
   const myDepartures = useMyDepartures()
@@ -38,9 +38,11 @@ export const useSyncCenter = defineStore('syncCenter', () => {
   readFilters()
   readUser()
   readFollowingUserDepartures()
+
   function readMyRaces(): void {
     myRaces.value = localStorage.getItem<Race[]>(MY_RACES_STORAGE_KEY) || []
   }
+
   function readFilters(): void {
     const filtersFromStore: RaceFilter | null =
       localStorage.getItem<RaceFilter>(FILTERS_STORAGE_KEY)

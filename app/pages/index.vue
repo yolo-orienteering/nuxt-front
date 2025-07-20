@@ -1,30 +1,30 @@
 <template>
   <div class="q-pt-md">
-    <!-- filter -->
+    <!-- filter
     <Teleport v-if="teleportToMenuEl" :to="teleportToMenuEl">
       <races-filter
         v-show="races"
         :loading="loading"
         @update:filter="updateFilter()"
       />
-    </Teleport>
+    </Teleport> -->
 
-    <race-timeline
+    <!-- <race-timeline
       v-if="races"
       :races="races"
       :loading="loading"
       @load-more="loadMore()"
-    />
+    /> -->
   </div>
 </template>
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
-  import RaceTimeline from '@/components/races/race-timeline.vue'
-  import RacesFilter from '@/components/races/races-filter.vue'
-  import { useSyncCenter } from '@/stores/syncCenter'
-  import type { Race } from '@/types/DirectusTypes'
-  import { useApi } from '@/stores/useApi'
+  import RaceTimeline from '~/components/races/raceTimeline.vue'
+  import RacesFilter from '~/components/races/racesFilter.vue'
+  import { useSyncCenter } from '~/stores/useSyncCenter'
+  import type { Race } from '~/types/directusTypes'
+  import { useApi } from '~/stores/useApi'
   import { readItems } from '@directus/sdk'
 
   // defining races
@@ -38,8 +38,8 @@
   const races = ref<Race[]>([])
 
   onMounted(async () => {
-    teleportToMenuEl.value = document.getElementById('teleport-to-menu')
-    await initialLoad()
+    // teleportToMenuEl.value = document.getElementById('teleport-to-menu')
+    // await initialLoad()
   })
 
   async function initialLoad(): Promise<void> {

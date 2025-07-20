@@ -1,4 +1,4 @@
-import type { RaceTerrain } from '@/classes/RaceFilter'
+import type { RaceTerrain } from '~/classes/RaceFilter'
 
 export function useRaceTerrain() {
   function getTerrainIcon(terrain: RaceTerrain): string | undefined {

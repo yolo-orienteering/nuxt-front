@@ -1,14 +1,16 @@
-import {defineStore} from 'pinia'
-import {computed, onMounted, ref} from 'vue'
-import {useApi} from './useApi'
-import {aggregate} from '@directus/sdk'
+import { defineStore } from 'pinia'
+import { computed, onMounted, ref } from 'vue'
+import { useApi } from './useApi'
+import { aggregate } from '@directus/sdk'
 
 export const useRegion = defineStore('useRegion', () => {
   const { directus } = useApi()
 
   const allRegions = ref<{ region: string }[]>([])
 
-  const regions = computed<{region: string}[]>(() => allRegions.value.filter(region => !!region))
+  const regions = computed<{ region: string }[]>(() =>
+    allRegions.value.filter((region) => !!region)
+  )
 
   onMounted(async () => {
     await getRegions()
@@ -18,12 +20,12 @@ export const useRegion = defineStore('useRegion', () => {
     allRegions.value = await directus.request<{ region: string }[]>(
       aggregate('Race', {
         aggregate: {},
-        groupBy: ['region']
+        groupBy: ['region'],
       })
     )
   }
 
   return {
-    regions
+    regions,
   }
 })

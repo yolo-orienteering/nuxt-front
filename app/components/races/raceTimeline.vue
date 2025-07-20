@@ -1,84 +1,84 @@
 <script lang="ts" setup>
-import moment from 'moment'
-import {Race} from 'src/types/DirectusTypes'
-import {formatDate} from 'src/utils/DateUtils'
-import {useSyncCenter} from 'src/stores/syncCenter'
-import {useRace} from 'src/composables/useRace'
-import {useRaceTerrain} from 'src/composables/useRaceTerrain'
-import {RaceTerrain} from 'src/classes/RaceFilter'
-import Mailchimp from 'components/newsletter/mailchimp.vue'
-import {useNewsletter} from 'src/composables/useNewsletter'
+  import moment from 'moment'
+  import type { Race } from '~/types/directusTypes'
+  import { formatDate } from '~/utils/dateUtils'
+  import { useSyncCenter } from '~/stores/useSyncCenter'
+  import { useRace } from '~/composables/useRace'
+  import { useRaceTerrain } from '~/composables/useRaceTerrain'
+  import type { RaceTerrain } from '@/classes/RaceFilter'
+  import Mailchimp from '../newsletter/mailchimp.vue'
+  import { useNewsletter } from '@/composables/useNewsletter'
 
-const syncCenter = useSyncCenter()
-const raceCompose = useRace()
-const { getTerrainIcon } = useRaceTerrain()
-const {isSubscribed} = useNewsletter()
+  const syncCenter = useSyncCenter()
+  const raceCompose = useRace()
+  const { getTerrainIcon } = useRaceTerrain()
+  const { isSubscribed } = useNewsletter()
 
-const props = withDefaults(
-  defineProps<{
-    races: Race[];
-    hideLoadMore?: boolean;
-    loading: boolean;
-  }>(),
-  {
-    races: () => [],
-    hideLoadMore: false,
-  }
-);
+  const props = withDefaults(
+    defineProps<{
+      races: Race[]
+      hideLoadMore?: boolean
+      loading: boolean
+    }>(),
+    {
+      races: () => [],
+      hideLoadMore: false,
+    }
+  )
 
-const emit = defineEmits<{
-  (e: "loadMore"): void;
-}>();
+  const emit = defineEmits<{
+    (e: 'loadMore'): void
+  }>()
 
-function loadMore() {
-  emit("loadMore");
-}
-
-function shouldAddUser(race: Race): boolean {
-  return !syncCenter.userIdentifier && !!race.departureLink;
-}
-
-function getMonthlyDelimiter(date: string): string {
-  const momentDate = moment(date);
-  return momentDate.year() > moment().year()
-    ? momentDate.locale("de-CH").format("MMMM YY")
-    : momentDate.locale("de-CH").format("MMMM");
-}
-
-function monthChangeInArray(
-  raceId: string,
-  firstMonth: boolean = true
-): boolean {
-  const foundIndex = props.races.findIndex((tmpRace) => tmpRace.id === raceId);
-  // race doesn't exist
-  if (foundIndex < 0 || !props.races) {
-    return false;
-  }
-  // beginning is always a month change
-  if (foundIndex === 0) {
-    return firstMonth;
+  function loadMore() {
+    emit('loadMore')
   }
 
-  const sortByDeadline = syncCenter.filter.deadline;
+  function shouldAddUser(race: Race): boolean {
+    return !syncCenter.userIdentifier && !!race.departureLink
+  }
 
-  const previousRace = props.races[foundIndex - 1];
-  const currentRace = props.races[foundIndex];
+  function getMonthlyDelimiter(date: string): string {
+    const momentDate = moment(date)
+    return momentDate.year() > moment().year()
+      ? momentDate.locale('de-CH').format('MMMM YY')
+      : momentDate.locale('de-CH').format('MMMM')
+  }
 
-  const previousRaceDate = sortByDeadline
-    ? previousRace?.deadline
-    : previousRace?.date;
-  const currentRaceDate = sortByDeadline
-    ? currentRace?.deadline
-    : currentRace?.date;
+  function monthChangeInArray(
+    raceId: string,
+    firstMonth: boolean = true
+  ): boolean {
+    const foundIndex = props.races.findIndex((tmpRace) => tmpRace.id === raceId)
+    // race doesn't exist
+    if (foundIndex < 0 || !props.races) {
+      return false
+    }
+    // beginning is always a month change
+    if (foundIndex === 0) {
+      return firstMonth
+    }
 
-  const monthOfPreviousRace = previousRaceDate
-    ? new Date(previousRaceDate).getMonth()
-    : undefined;
-  const currentMonth = currentRaceDate
-    ? new Date(currentRaceDate).getMonth()
-    : undefined;
-  return monthOfPreviousRace !== currentMonth;
-}
+    const sortByDeadline = syncCenter.filter.deadline
+
+    const previousRace = props.races[foundIndex - 1]
+    const currentRace = props.races[foundIndex]
+
+    const previousRaceDate = sortByDeadline
+      ? previousRace?.deadline
+      : previousRace?.date
+    const currentRaceDate = sortByDeadline
+      ? currentRace?.deadline
+      : currentRace?.date
+
+    const monthOfPreviousRace = previousRaceDate
+      ? new Date(previousRaceDate).getMonth()
+      : undefined
+    const currentMonth = currentRaceDate
+      ? new Date(currentRaceDate).getMonth()
+      : undefined
+    return monthOfPreviousRace !== currentMonth
+  }
 </script>
 
 <template>
@@ -122,7 +122,11 @@ function monthChangeInArray(
           </q-timeline-entry>
 
           <!-- newsletter -->
-          <q-timeline-entry v-if="raceIndex === 4 && !isSubscribed()" class="bg-dark text-white q-pr-sm" color="white">
+          <q-timeline-entry
+            v-if="raceIndex === 4 && !isSubscribed()"
+            class="bg-dark text-white q-pr-sm"
+            color="white"
+          >
             <mailchimp />
           </q-timeline-entry>
 
@@ -135,7 +139,7 @@ function monthChangeInArray(
             <template v-slot:subtitle>
               <div class="row items-center">
                 <div class="col-6">
-                  {{ formatDate(race.date!, "dd, DD.MM yyyy") }}
+                  {{ formatDate(race.date!, 'dd, DD.MM yyyy') }}
                 </div>
                 <!-- deadline -->
                 <div v-if="race.deadline" class="col-6 text-right">
@@ -167,7 +171,7 @@ function monthChangeInArray(
                     color="secondary"
                     dense
                   >
-                    {{ formatDate(race.deadline!, "dd, DD.MMM") }}
+                    {{ formatDate(race.deadline!, 'dd, DD.MMM') }}
                   </q-chip>
                 </div>
               </div>
@@ -205,8 +209,8 @@ function monthChangeInArray(
                     style="margin-top: -4px"
                   />
                 </span>
-                {{ race.city || race.mapName || "vakant" }}
-                {{ race.region ? `(${race.region})` : "" }}
+                {{ race.city || race.mapName || 'vakant' }}
+                {{ race.region ? `(${race.region})` : '' }}
               </div>
             </div>
           </q-timeline-entry>

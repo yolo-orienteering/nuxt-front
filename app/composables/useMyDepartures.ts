@@ -1,10 +1,10 @@
 import { readItems } from '@directus/sdk'
-import { useSyncCenter } from '@/stores/syncCenter'
-import { useApi } from '@/stores/useApi'
-import type { RaceCategory, UserDeparture } from '@/types/DirectusTypes'
+import { useSyncCenter } from '~/stores/useSyncCenter'
+import { useApi } from '~/stores/useApi'
+import type { RaceCategory, UserDeparture } from '~/types/directusTypes'
 import { onMounted, ref, watch } from 'vue'
 import { useDeparture } from './useDeparture'
-import { useLocalStorage } from './useLocalStorage'
+import { useLocalStorage } from './useLocalStore'
 
 export function useMyDepartures() {
   const { directus } = useApi()
@@ -30,11 +30,12 @@ export function useMyDepartures() {
   // update local store
   watch(
     () => myDepartures,
-    () =>
+    () => {
       localStorage.setItem(
         MY_DEPARTURES_KEY,
         JSON.stringify(myDepartures.value)
-      ),
+      )
+    },
     { deep: true }
   )
 

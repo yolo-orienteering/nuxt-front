@@ -1,5 +1,5 @@
-import { Query, QueryFilter } from '@directus/sdk'
-import { CustomDirectusTypes, Race } from 'src/types/DirectusTypes'
+import type { Query, QueryFilter } from '@directus/sdk'
+import type { CustomDirectusTypes, Race } from '~/types/directusTypes'
 
 export type RaceQuery = Query<CustomDirectusTypes, Race>
 export type RaceTerrain = 'forest' | 'urban' | 'mix' | undefined | null
@@ -14,7 +14,7 @@ export default class RaceFilter {
   public limit: number
   public page: number
 
-  constructor (props?: Partial<RaceFilter>) {
+  constructor(props?: Partial<RaceFilter>) {
     this.deadline = props?.deadline || false
     this.searchString = props?.searchString
     this.terrain = props?.terrain
@@ -25,7 +25,11 @@ export default class RaceFilter {
     this.page = props?.page || 1
   }
 
-  public composeRaceQuery ({initialLoad}: {initialLoad?: boolean}): RaceQuery {
+  public composeRaceQuery({
+    initialLoad,
+  }: {
+    initialLoad?: boolean
+  }): RaceQuery {
     let limit = this.limit
     let page = this.page
 
@@ -46,12 +50,12 @@ export default class RaceFilter {
       sort: 'date',
       filter: {
         date: {
-          _gte: filterDateIso
+          _gte: filterDateIso,
         },
         terrain: {
-          _eq: this.terrain
-        }
-      }
+          _eq: this.terrain,
+        },
+      },
     } as RaceQuery
 
     // add deadline filter
@@ -62,16 +66,16 @@ export default class RaceFilter {
           {
             deadline: {
               _nnull: true,
-            }
+            },
           },
           {
             deadline: {
-              _gte: filterDateIso
+              _gte: filterDateIso,
             },
-          }
+          },
         ],
         // reset date filter
-        date: {}
+        date: {},
       } as QueryFilter<CustomDirectusTypes, Race>
 
       composedFilter.sort = 'deadline'
@@ -82,18 +86,20 @@ export default class RaceFilter {
       composedFilter.filter = {
         ...composedFilter.filter,
         geographicalScale: {
-          _eq: this.geographicalScale
-        }
+          _eq: this.geographicalScale,
+        },
       }
     }
 
     // add region filter
     if (this.regions?.length) {
-      const regionsOrFilter = this.regions.map(region => ({region: {_eq: region}}))
+      const regionsOrFilter = this.regions.map((region) => ({
+        region: { _eq: region },
+      }))
 
       composedFilter.filter = {
         ...composedFilter.filter,
-        _or: regionsOrFilter
+        _or: regionsOrFilter,
       }
     }
 
@@ -101,7 +107,7 @@ export default class RaceFilter {
     if (this.searchString) {
       composedFilter.search = this.searchString
     }
-  
+
     return composedFilter
   }
 }

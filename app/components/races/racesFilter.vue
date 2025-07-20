@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { onMounted, ref } from 'vue'
-  import { useSyncCenter } from '@/stores/syncCenter'
-  import { useRegion } from '@/stores/useRegion'
-  import type { RaceTerrain } from '@/classes/RaceFilter'
-  import { useRaceTerrain } from '@/composables/useRaceTerrain'
+  import { useSyncCenter } from '~/stores/useSyncCenter'
+  import { useRegion } from '~/stores/useRegion'
+  import type { RaceTerrain } from '~/classes/RaceFilter'
+  import { useRaceTerrain } from '~/composables/useRaceTerrain'
 
   const { filter } = useSyncCenter()
   const regionStore = useRegion()

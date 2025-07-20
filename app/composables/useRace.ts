@@ -1,5 +1,5 @@
-import { useSyncCenter } from '@/stores/syncCenter'
-import type { Race, RaceInstruction } from '@/types/DirectusTypes'
+import { useSyncCenter } from '~/stores/useSyncCenter'
+import type { Race, RaceInstruction } from '~/types/directusTypes'
 
 type RaceLinkType =
   | 'event'

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import backBtn from '../helper/back-btn.vue'
+  import backBtn from '../helper/backBtn.vue'
   const { isActiveRoute, menuEntries, showBackButton } = useMenu()
 
   const navigationHeight = computed<number>(() =>

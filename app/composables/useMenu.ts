@@ -26,7 +26,7 @@ export function useMenu() {
     {
       name: 'Meine Läufe',
       icon: IconBookmark,
-      routeName: 'my-races',
+      routeName: 'myRaces',
     },
   ])
 
