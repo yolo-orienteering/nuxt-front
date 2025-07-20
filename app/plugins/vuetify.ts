@@ -15,6 +15,11 @@ export default defineNuxtPlugin((app) => {
         },
       },
     },
+    defaults: {
+      VBtn: {
+        variant: 'outlined',
+      },
+    },
     ssr: true,
   })
   app.vueApp.use(vuetify)

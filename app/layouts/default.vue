@@ -11,9 +11,11 @@
     <notifications />
     <o-desktop-menu />
     <v-main>
-      <v-container>
-        <slot />
-      </v-container>
+      <v-layout>
+        <v-container>
+          <slot />
+        </v-container>
+      </v-layout>
     </v-main>
     <o-mobile-menu class="hidden-sm-and-up" />
   </v-app>

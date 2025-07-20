@@ -70,6 +70,6 @@
       })
       return
     }
-    races.value = [...races.value, ...newRaces]
+    races.value = [...(races.value || []), ...newRaces]
   }
 </script>
