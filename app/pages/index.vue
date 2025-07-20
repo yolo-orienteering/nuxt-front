@@ -9,12 +9,12 @@
       />
     </Teleport> -->
 
-    <!-- <race-timeline
+    <race-timeline
       v-if="races"
       :races="races"
       :loading="loading"
       @load-more="loadMore()"
-    /> -->
+    />
   </div>
 </template>
 
@@ -39,7 +39,7 @@
 
   onMounted(async () => {
     // teleportToMenuEl.value = document.getElementById('teleport-to-menu')
-    // await initialLoad()
+    await initialLoad()
   })
 
   async function initialLoad(): Promise<void> {
@@ -54,19 +54,19 @@
       top: 0,
       behavior: 'smooth',
     })
-    syncCenter.filter.page = 1
+    syncCenter.filter.filter.page = 1
     const query = syncCenter.filter.composeRaceQuery({})
     races.value = await directus.request<Race[]>(readItems('Race', query))
   }
 
   async function loadMore(): Promise<void> {
-    syncCenter.filter.page += 1
+    syncCenter.filter.filter.page += 1
     const query = syncCenter.filter.composeRaceQuery({})
     const newRaces = await directus.request<Race[]>(readItems('Race', query))
 
     // no new races
     if (!newRaces.length) {
-      syncCenter.filter.page -= 1
+      syncCenter.filter.filter.page -= 1
       notify.info({
         text: 'Keine weiteren Läufe verfügbar',
       })

@@ -10,7 +10,7 @@ export type FollowingUserDeparture = Pick<UserDeparture, 'id' | 'race'>
 export const useSyncCenter = defineStore('useSyncCenter', () => {
   // NEW WAY!
   // todo: move others into new separate composable
-  const { filter, initFilter } = useRaceFilter()
+  const filter = useRaceFilter()
 
   // also to be re-written
   const myDepartures = useMyDepartures()
@@ -49,7 +49,7 @@ export const useSyncCenter = defineStore('useSyncCenter', () => {
     const filtersFromStore: RaceFilter | null =
       localStorage.getItem<RaceFilter>(FILTERS_STORAGE_KEY)
     if (filtersFromStore) {
-      initFilter(filtersFromStore)
+      filter.initFilter(filtersFromStore)
     }
   }
   function readUser(): void {
@@ -86,9 +86,12 @@ export const useSyncCenter = defineStore('useSyncCenter', () => {
   )
   // filters
   watch(
-    filter,
+    filter.filter,
     () => {
-      localStorage.setItem(FILTERS_STORAGE_KEY, JSON.stringify(filter.value))
+      localStorage.setItem(
+        FILTERS_STORAGE_KEY,
+        JSON.stringify(filter.filter.value)
+      )
     },
     { deep: true }
   )

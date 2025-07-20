@@ -4,6 +4,12 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  css: ['@/assets/styles/styles.scss'],
+  runtimeConfig: {
+    public: {
+      apiUrl: '',
+    },
+  },
 
   modules: [
     '@nuxt/eslint',
@@ -35,5 +41,4 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ['@/assets/styles/styles.scss'],
 })

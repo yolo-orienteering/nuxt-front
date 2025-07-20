@@ -5,7 +5,7 @@
   import { useSyncCenter } from '~/stores/useSyncCenter'
   import { useRace } from '~/composables/useRace'
   import { useRaceTerrain } from '~/composables/useRaceTerrain'
-  import type { RaceTerrain } from '@/classes/RaceFilter'
+  import type { RaceTerrain } from '#imports'
   import Mailchimp from '../newsletter/mailchimp.vue'
   import { useNewsletter } from '@/composables/useNewsletter'
 
